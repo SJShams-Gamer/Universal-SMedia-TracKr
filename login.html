@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tracker — Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h1>Universal Media Tracker</h1>
+
+    <div class="auth-forms">
+      <div id="login-form">
+        <h2>Sign in</h2>
+        <input id="login-email" type="email" placeholder="Email" />
+        <input id="login-password" type="password" placeholder="Password" />
+        <button id="login-btn" class="btn accent">Sign in</button>
+        <p>Don't have an account? <span id="show-signup" class="linkish">Create one</span></p>
+      </div>
+
+      <div id="signup-form" style="display:none;">
+        <h2>Create account</h2>
+        <input id="signup-email" type="email" placeholder="Email" />
+        <input id="signup-password" type="password" placeholder="Password" />
+        <button id="signup-btn" class="btn accent">Create account</button>
+        <p>Already have an account? <span id="show-login" class="linkish">Sign in</span></p>
+      </div>
+
+      <p id="auth-msg" class="auth-msg"></p>
+    </div>
+  </div>
+
+  <!-- app.js handles auth for both pages; script.js is only for index page -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

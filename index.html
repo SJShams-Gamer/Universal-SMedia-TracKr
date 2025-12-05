@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tracker — My List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <h1>Universal Media Tracker</h1>
+      <p class="subtitle">Anime • Manga • Movies • Music • Books</p>
+    </div>
+    <div class="user-actions">
+      <button id="btn-export" class="btn">Export JSON</button>
+      <button id="btn-import-open" class="btn">Import</button>
+      <button id="logout-btn" class="btn danger">Sign out</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <input id="search-input" placeholder="Search your My List..." />
+      <select id="type-filter">
+        <option value="all">All</option>
+        <option value="anime">Anime</option>
+        <option value="manga">Manga</option>
+        <option value="movie">Movie/Series</option>
+        <option value="music">Music</option>
+        <option value="book">Book</option>
+        <option value="custom">Custom</option>
+      </select>
+
+      <div class="right-controls">
+        <button id="add-custom-btn" class="btn accent">+ Add Custom</button>
+        <button id="open-import-modal" class="btn">Import AniList/MAL/JSON</button>
+      </div>
+    </section>
+
+    <section class="search-api">
+      <h3>Search (AniList)</h3>
+      <div class="search-api-row">
+        <input id="api-search-input" placeholder="Search AniList (e.g., Naruto)" /> <!-- Can edit to (Search AniList) -->
+        <select id="api-media-type">
+          <option value="ANIME">Anime</option>
+          <option value="MANGA">Manga</option>
+        </select>
+        <button id="api-search-btn" class="btn">Search AniList</button>
+      </div>
+      <div id="api-results" class="my-list"></div>
+    </section>
+
+    <section id="my-list" class="my-list" aria-live="polite">
+      <!-- My list items rendered here -->
+    </section>
+  </main>
+
+  <!-- Entry Modal (add/edit) -->
+  <div id="entry-modal" class="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h3 id="modal-title">Add Custom Entry</h3>
+        <button class="modal-close" data-close>✕</button>
+      </header>
+      <div class="modal-body">
+        <label>Title</label>
+        <input id="entry-title" />
+        <label>Type</label>
+        <select id="entry-type">
+          <option value="anime">Anime</option>
+          <option value="manga">Manga</option>
+          <option value="movie">Movie/Series</option>
+          <option value="music">Music</option>
+          <option value="book">Book</option>
+          <option value="custom">Custom</option>
+        </select>
+        <label>Thumbnail URL (optional)</label>
+        <input id="entry-thumbnail" />
+        <label>Status</label>
+        <input id="entry-status" placeholder="e.g., Watching / Completed / Plan to Watch / Read" />
+        <label>Notes (private)</label>
+        <textarea id="entry-notes" rows="4"></textarea>
+      </div>
+      <footer class="modal-footer">
+        <button id="save-entry-btn" class="btn accent">Save</button>
+        <button class="btn" data-close>Cancel</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Import Modal -->
+  <div id="import-modal" class="modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <header class="modal-header">
+        <h3>Import Lists</h3>
+        <button class="modal-close" data-close>✕</button>
+      </header>
+
+      <div class="modal-body">
+        <p>Import from AniList (public):</p>
+        <input id="import-anilist-username" placeholder="AniList username" />
+        <select id="import-anilist-type">
+          <option value="ANIME">Anime</option>
+          <option value="MANGA">Manga</option>
+        </select>
+        <button id="import-anilist-btn" class="btn">Import AniList</button>
+
+        <hr />
+
+        <p>Import from MyAnimeList (via Jikan):</p>
+        <input id="import-mal-username" placeholder="MAL username" />
+        <select id="import-mal-type">
+          <option value="anime">Anime</option>
+          <option value="manga">Manga</option>
+        </select>
+        <button id="import-mal-btn" class="btn">Import MAL (Jikan)</button>
+
+        <hr />
+
+        <p>Or import from JSON file (backup):</p>
+        <input id="import-json-file" type="file" accept="application/json" />
+      </div>
+
+      <footer class="modal-footer">
+        <button id="import-close" class="btn" data-close>Done</button>
+      </footer>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>   <!-- firebase + firestore + import logic -->
+  <script type="module" src="script.js"></script> <!-- search + UI + render -->
+</body>
+</html>
